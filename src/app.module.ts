@@ -2,6 +2,9 @@ import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 import { Dialect } from 'sequelize';
+import { AccountsModule } from './accounts/accounts.module';
+import Account from './models/account.model';
+import Setting from './models/setting.model';
 
 @Module({
   imports: [
@@ -12,8 +15,9 @@ import { Dialect } from 'sequelize';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      autoLoadModels: true,
+      models: [Account, Setting],
     }),
+    AccountsModule,
   ],
   controllers: [],
   providers: [],

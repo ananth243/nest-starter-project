@@ -8,10 +8,15 @@ import {
   UpdatedAt,
   HasMany,
   AllowNull,
+  Unique,
 } from 'sequelize-typescript';
 
 @Table
 export default class Account extends Model {
+  @Unique({
+    name: 'UniqueException',
+    msg: 'Account with this name already exists',
+  })
   @AllowNull(false)
   @Column
   name: string;
