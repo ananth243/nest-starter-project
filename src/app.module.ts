@@ -3,6 +3,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 import { Dialect } from 'sequelize';
 import { AccountsModule } from './accounts/accounts.module';
+import { SettingsModule } from './settings/settings.module';
 import Account from './models/account.model';
 import Setting from './models/setting.model';
 
@@ -18,6 +19,7 @@ import Setting from './models/setting.model';
       models: [Account, Setting],
     }),
     AccountsModule,
+    SettingsModule,
   ],
   controllers: [],
   providers: [],

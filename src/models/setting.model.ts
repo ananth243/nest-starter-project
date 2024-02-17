@@ -11,7 +11,9 @@ import {
 } from 'sequelize-typescript';
 import Account from 'src/models/account.model';
 
-@Table
+@Table({
+  indexes: [{ fields: ['account_id', 'name'], unique: true }],
+})
 export default class Setting extends Model {
   @AllowNull(false)
   @Column
