@@ -9,12 +9,15 @@ import {
   ParseIntPipe,
   UseInterceptors,
   BadRequestException,
+  UseGuards,
 } from '@nestjs/common';
 import { SettingsService } from './settings.service';
 import { CreateSettingDto } from './dto/create-setting.dto';
 import { UpdateSettingDto } from './dto/update-setting.dto';
 import { SettingsInterceptor } from './settings.interceptor';
+import { AuthGuard } from 'src/auth/auth.guard';
 
+@UseGuards(AuthGuard)
 @UseInterceptors(SettingsInterceptor)
 @Controller('settings')
 export class SettingsController {
