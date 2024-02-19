@@ -15,18 +15,19 @@ import { SettingsService } from './settings.service';
 import { CreateSettingDto } from './dto/create-setting.dto';
 import { UpdateSettingDto } from './dto/update-setting.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { SettingsBodyValidation } from './settings.validation';
 
 @UseGuards(AuthGuard)
 @Controller('settings')
 export class SettingsController {
   constructor(private readonly settingsService: SettingsService) {}
 
-  @UsePipes(new SettingsBodyValidation())
   @Post()
   async create(@Body() createSettingDto: CreateSettingDto) {
     try {
-      return await this.settingsService.create(createSettingDto);
+      const { id, ...response } = await this.settingsService.create(
+        createSettingDto,
+      );
+      return response;
     } catch (error) {
       if (error.name === 'SequelizeUniqueConstraintError') {
         throw new BadRequestException(`Setting for the account exists`);
@@ -40,7 +41,6 @@ export class SettingsController {
     return this.settingsService.findOne(id);
   }
 
-  @UsePipes(new SettingsBodyValidation())
   @Patch(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,

@@ -12,6 +12,7 @@ export class SettingsService {
   ) {}
 
   async create({ name, account_id, data_type, value }: CreateSettingDto) {
+    if (typeof value === 'object') value = JSON.stringify(value);
     return this.settingModel.create({ name, account_id, data_type, value });
   }
 
@@ -20,6 +21,8 @@ export class SettingsService {
   }
 
   async update(id: number, updateSettingDto: UpdateSettingDto) {
+    if (typeof updateSettingDto.value === 'object')
+      updateSettingDto.value = JSON.stringify(updateSettingDto.value);
     return this.settingModel.update({ ...updateSettingDto }, { where: { id } });
   }
 

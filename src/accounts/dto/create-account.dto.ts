@@ -1,5 +1,5 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsString } from 'class-validator';
 export class CreateAccountDto {
-  @IsNotEmpty()
+  @IsString()
   name: string;
 }

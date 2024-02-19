@@ -1,15 +1,19 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsEnum, IsInt, IsNotEmpty, IsString } from 'class-validator';
+import { IsSameTypeAs } from './validators/datatype.validator';
 
 export class CreateSettingDto {
-  @IsNotEmpty()
+  @IsString()
   name: string;
 
-  @IsNotEmpty()
+  @IsEnum(['string', 'number', 'boolean', 'object'])
   data_type: string;
 
-  @IsNotEmpty()
-  account_id: string;
+  @IsInt()
+  account_id: number;
 
   @IsNotEmpty()
+  @IsSameTypeAs('data_type', {
+    message: 'value should be same type as data_type',
+  })
   value: string | number | boolean | object;
 }

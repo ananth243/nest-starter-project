@@ -9,29 +9,32 @@ import {
   HasMany,
   AllowNull,
   Unique,
+  PrimaryKey,
+  DataType,
 } from 'sequelize-typescript';
 
 @Table
 export default class Account extends Model {
+  @PrimaryKey
+  @Column(DataType.INTEGER)
+  id: number;
+
   @Unique({
     name: 'UniqueException',
     msg: 'Account with this name already exists',
   })
   @AllowNull(false)
-  @Column
+  @Column(DataType.TEXT)
   name: string;
 
   @CreatedAt
-  @Column
-  createdAt: Date;
+  created_at: Date;
 
   @UpdatedAt
-  @Column
-  updatedAt: Date;
+  updated_at: Date;
 
   @DeletedAt
-  @Column
-  deletedAt: Date;
+  deleted_at: Date;
 
   @HasMany(() => Setting)
   settings: Setting[];

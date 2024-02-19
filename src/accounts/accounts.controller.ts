@@ -19,7 +19,10 @@ export class AccountsController {
   @Post()
   async create(@Body() createAccountDto: CreateAccountDto) {
     try {
-      return await this.accountsService.create(createAccountDto);
+      const { id, ...response } = await this.accountsService.create(
+        createAccountDto,
+      );
+      return response;
     } catch (error) {
       if (error.name === 'SequelizeUniqueConstraintError')
         throw new BadRequestException(error.message);
