@@ -1,10 +1,27 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { SequelizeModule } from '@nestjs/sequelize';
+import { ConfigModule } from '@nestjs/config';
+import { Dialect } from 'sequelize';
+import { AccountsModule } from './accounts/accounts.module';
+import { SettingsModule } from './settings/settings.module';
+import Account from './accounts/account.model';
+import Setting from './settings/settings.model';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    SequelizeModule.forRoot({
+      dialect: (process.env.DB_DIALECT as Dialect) || 'postgres',
+      host: process.env.DB_HOST,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+      models: [Account, Setting],
+    }),
+    AccountsModule,
+    SettingsModule,
+  ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
