@@ -1,4 +1,5 @@
-import Setting from './setting.model';
+import { NonAttribute } from 'sequelize';
+import Setting from '../settings/settings.model';
 import {
   Column,
   Model,
@@ -13,14 +14,20 @@ import {
   DataType,
 } from 'sequelize-typescript';
 
-@Table
+@Table({
+  tableName: 'accounts',
+  indexes: [{ fields: ['name'], unique: true }],
+  defaultScope: {
+    attributes: { exclude: ['deleted_at'] },
+  },
+})
 export default class Account extends Model {
   @PrimaryKey
   @Column(DataType.INTEGER)
   id: number;
 
   @Unique({
-    name: 'UniqueException',
+    name: 'UniqueError',
     msg: 'Account with this name already exists',
   })
   @AllowNull(false)
@@ -37,5 +44,5 @@ export default class Account extends Model {
   deleted_at: Date;
 
   @HasMany(() => Setting)
-  settings: Setting[];
+  settings: NonAttribute<Setting[]>;
 }

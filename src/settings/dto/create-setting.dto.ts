@@ -1,5 +1,6 @@
 import { IsEnum, IsInt, IsNotEmpty, IsString } from 'class-validator';
 import { IsSameTypeAs } from './validators/datatype.validator';
+import { SettingsValueType } from '../settings.type';
 
 export class CreateSettingDto {
   @IsString()
@@ -16,5 +17,5 @@ export class CreateSettingDto {
   @IsSameTypeAs('data_type', {
     message: 'value should be same type as data_type',
   })
-  value: string | number | boolean | object;
+  value: SettingsValueType;
 }

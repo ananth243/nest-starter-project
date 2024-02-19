@@ -1,3 +1,4 @@
+import {  NonAttribute } from 'sequelize';
 import {
   BelongsTo,
   Column,
@@ -11,10 +12,14 @@ import {
   PrimaryKey,
   DataType,
 } from 'sequelize-typescript';
-import Account from 'src/models/account.model';
+import Account from 'src/accounts/account.model';
 
 @Table({
+  tableName: 'settings',
   indexes: [{ fields: ['account_id', 'name'], unique: true }],
+  defaultScope: {
+    attributes: { exclude: ['deleted_at'] },
+  },
 })
 export default class Setting extends Model {
   @PrimaryKey
@@ -27,7 +32,7 @@ export default class Setting extends Model {
 
   @AllowNull(false)
   @Column({ type: DataType.ENUM('number', 'string', 'object', 'boolean') })
-  data_type: 'number' | 'string' | 'object' | 'boolean';
+  data_type: string;
 
   @AllowNull(false)
   @Column(DataType.TEXT)
@@ -38,7 +43,7 @@ export default class Setting extends Model {
   account_id: number;
 
   @BelongsTo(() => Account)
-  account: Account;
+  account: NonAttribute<Account>;
 
   @CreatedAt
   created_at: Date;

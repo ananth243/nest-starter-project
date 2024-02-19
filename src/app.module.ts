@@ -4,8 +4,8 @@ import { ConfigModule } from '@nestjs/config';
 import { Dialect } from 'sequelize';
 import { AccountsModule } from './accounts/accounts.module';
 import { SettingsModule } from './settings/settings.module';
-import Account from './models/account.model';
-import Setting from './models/setting.model';
+import Account from './accounts/account.model';
+import Setting from './settings/settings.model';
 
 @Module({
   imports: [
