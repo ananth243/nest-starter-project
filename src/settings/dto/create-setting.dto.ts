@@ -3,6 +3,7 @@ import { IsSameTypeAs } from './validators/datatype.validator';
 
 export class CreateSettingDto {
   @IsString()
+  @IsNotEmpty()
   name: string;
 
   @IsEnum(['string', 'number', 'boolean', 'object'])

@@ -9,7 +9,6 @@ import {
   ParseIntPipe,
   BadRequestException,
   UseGuards,
-  UsePipes,
 } from '@nestjs/common';
 import { SettingsService } from './settings.service';
 import { CreateSettingDto } from './dto/create-setting.dto';
